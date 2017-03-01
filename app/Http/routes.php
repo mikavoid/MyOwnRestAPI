@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('vehicles', 'VehiclesController', ['except' => ['store', 'edit']]);
+Route::resource('makers', 'MakersController', ['only' => ['index']]);
+
+Route::resource('makers.vehicles', 'MakersVehiclesController', ['except' => ['create', 'edit', 'show']]);
