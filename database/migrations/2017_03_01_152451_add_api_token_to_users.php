@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMakersTable extends Migration
+class AddApiTokenToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateMakersTable extends Migration
      */
     public function up()
     {
-        Schema::create('makers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('phone');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('api_token', 60)->unique();
         });
     }
 
@@ -27,6 +24,8 @@ class CreateMakersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('makers');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('api_token');
+        });
     }
 }

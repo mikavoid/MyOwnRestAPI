@@ -10,10 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function() {
-    return 'ok';
+Route::group(['middleware' => 'auth'], function () {
+
 });
-Route::resource('makers', 'MakersController', ['except' => ['store', 'edit']]);
+Route::group(['prefix' => 'api/v1', 'middleware' => 'auth.basic'], function () {
+    Route::resource('makers', 'MakersController', ['except' => ['edit']]);
+});
 Route::resource('vehicles', 'VehiclesController', ['only' => ['index']]);
 
-Route::resource('makers.vehicles', 'MakersVehiclesController', ['except' => ['create', 'edit', 'show']]);
+Route::resource('makers.vehicles', 'MakersVehiclesController', ['except' => ['create', 'edit']]);
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

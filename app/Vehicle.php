@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
 {
-    protected $primaryKey = 'serie';
-
     protected $fillable = [
         'color',
         'power',
@@ -16,9 +14,10 @@ class Vehicle extends Model
     ];
 
     protected $hidden = [
-        'serie',
+        'id',
         'created_at',
         'updated_at',
+        'maker_id',
     ];
 
     function maker() {

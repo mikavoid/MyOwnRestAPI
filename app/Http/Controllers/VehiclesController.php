@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Vehicle;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,6 +17,8 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        return 'ok';
+        $vehicles = Vehicle::all();
+        $data = compact('vehicles');
+        return JsonResponse::create(compact('data'));
     }
 }
